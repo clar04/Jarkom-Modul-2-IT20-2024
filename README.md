@@ -460,7 +460,7 @@ www     IN      CNAME   airdrop.it20.com.
 ## Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
 ### Penyelesaian
-Untuk menambahkan subdomain siren dan alias www pada redzone.it05.com kita bisa menambahkan pada conf redzone.it05.com dan mengarahkan ke IP Georgopool seperti berikut:
+Untuk menambahkan subdomain siren dan alias www pada redzone.it20.com kita bisa menambahkan pada conf redzone.it20.com dan mengarahkan ke IP Georgopol seperti berikut:
 ~~~
 ns1     IN      A       192.243.2.2
 siren   IN      NS      ns1
