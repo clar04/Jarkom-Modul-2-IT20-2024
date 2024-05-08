@@ -412,7 +412,7 @@ etc/bind/named.conf.options
 ## Soal 14
 Mereka juga belum merasa puas jadi pusat meminta agar web servernya dan load balancer nya diubah menjadi nginx
 ### Penyelesaian
-Jadi kita akan merubah dari apache menjadi nginx dengan menjalankan script pada severny, lipovka, dan stalber denagnmenggunakan script sebagai berikut:
+Jadi kita akan merubah dari apache menjadi nginx dengan menjalankan script pada severny, lipovka, dan stalber dengan menggunakan script sebagai berikut:
 ~~~
 server {
     listen 8002;
