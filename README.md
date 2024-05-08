@@ -509,7 +509,30 @@ etc/bind/named.conf.options
 ## Soal 12
 
 ### Penyelesaian
+Untuk mendeploy website menggunakan apache, lakukan config pada file /etc/apache2/sites-available/default
+~~~
+server {
+    listen 8002;
+    root /var/www/html/mylta.it20.com/;
+    index index.php index.html index.htm;
 
+    server_name mylta.it20.com;
+    server_alias www.mylta.it20.com
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+~~~
 
 ## Soal 13
 Tapi pusat merasa tidak puas dengan performanya karena traffic yang tinggi maka pusat meminta kita memasang load balancer pada web nya, dengan Severny, Stalber, Lipovka sebagai worker dan Mylta sebagai Load Balancer menggunakan apache sebagai web server nya dan load balancer nya
