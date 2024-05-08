@@ -354,7 +354,7 @@ Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, 
 
 
 ## Soal 11
-
+Setelah pertempuran mereda, warga Erangel dapat kembali mengakses jaringan luar, tetapi hanya warga Pochinki saja yang dapat mengakses jaringan luar secara langsung. Buatlah konfigurasi agar warga Erangel yang berada diluar Pochinki dapat mengakses jaringan luar melalui DNS Server Pochinki
 ### Penyelesaian
 ~~~
 options {
@@ -385,6 +385,8 @@ options {
 };
 ~~~
 etc/bind/named.conf.options
+
+
 
 
 ## Soal 12
