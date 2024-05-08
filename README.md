@@ -139,36 +139,209 @@ Untuk membantu pertempuran di Erangel, kamu ditugaskan untuk membuat jaringan ko
 Karena para pasukan membutuhkan koordinasi untuk mengambil airdrop, maka buatlah sebuah domain yang mengarah ke Stalber dengan alamat airdrop.xxxx.com dengan alias www.airdrop.xxxx.com dimana xxxx merupakan kode kelompok.
 ### Penyelesaian
 
+```
+zone "airdrop.it20.com" {
+	type master;
+	file "/etc/bind/jarkom/airdrop.it20.com";
+};
+```
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     airdrop.it20.com. root.airdrop.it20.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      airdrop.it20.com.
+@       IN      A       192.243.2.4 //Stalber
+www     IN      CNAME   airdrop.it20.com
+```
 
 ## Soal 3
 Para pasukan juga perlu mengetahui mana titik yang sedang di bombardir artileri, sehingga dibutuhkan domain lain yaitu redzone.xxxx.com dengan alias www.redzone.xxxx.com yang mengarah ke Severny
 ### Penyelesaian
+```
+zone "redzone.it20.com" {
+	type master;
+	file "/etc/bind/jarkom/redzone.it20.com";
+};
+```
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     redzone.it20.com. root.redzone.it20.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      redzone.it20.com.
+@       IN      A       192.243.2.2 //serverny
+www     IN      CNAME   redzone.it20.com.
+```
 
 
 ## Soal 4
 Markas pusat meminta dibuatnya domain khusus untuk menaruh informasi persenjataan dan suplai yang tersebar. Informasi persenjataan dan suplai tersebut mengarah ke Mylta dan domain yang ingin digunakan adalah loot.xxxx.com dengan alias www.loot.xxxx.com
 ### Penyelesaian
+```
+zone "loot.it20.com" {
+	type master;
+	file "/etc/bind/jarkom/loot.it20.com";
+};
+```
+
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     loot.it20.com. root.loot.it20.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      loot.it20.com.
+@       IN      A       192.243.2.5 //MyIta
+www     IN      CNAME   loot.it20.com.
+```
 
 
 ## Soal 5
 Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yang berada di Erangel
 ### Penyelesaian
-
+SS dokumentasi 
 
 ## Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
 ### Penyelesaian
+```
+zone "2.243.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/2.243.192.in-addr.arpa";
+};
+```
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     redzone.it20.com. root.redzone.it20.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+2.243.192.in-addr.arpa.       IN      NS      redzone.it20.com.
+2                             IN      PTR     redzone.it20.com.
+'
+```
 
 
 ## Soal 7
 Akhir-akhir ini seringkali terjadi serangan siber ke DNS Server Utama, sebagai tindakan antisipasi kamu diperintahkan untuk membuat DNS Slave di Georgopol untuk semua domain yang sudah dibuat sebelumnya
 ### Penyelesaian
-
+```
+zone "airdrop.it20.com" {
+    type master;
+    notify yes;
+    also-notify { 192.243.4.2; };  //georgopol
+    allow-transfer { 192.243.4.2; };
+    file "/etc/bind/jarkom/airdrop.it20.com";
+};
+zone "redzone.it20.com" {
+    type master;
+    notify yes;
+    also-notify { 192.243.4.2; }; 
+    allow-transfer { 192.243.4.2; };
+    file "/etc/bind/jarkom/redzone.it20.com";
+};
+zone "loot.it20.com" {
+    type master;
+    notify yes;
+    also-notify { 192.243.4.2; }; 
+    allow-transfer { 192.243.4.2; };
+    file "/etc/bind/jarkom/loot.it20.com";
+};
+zone "2.243.192.in-addr.arpa" {
+    type master;
+    notify yes;
+    also-notify { 192.243.4.2; }; 
+    allow-transfer { 192.243.4.2; };
+    file "/etc/bind/jarkom/2.243.192.in-addr.arpa";
+};
+```
+```
+zone "airdrop.it20.com" {
+    type slave;
+    notify yes;
+    also-notify {192.243.3.2; };   //pochinki
+    allow-transfer { 192.243.3.2; };
+    file "/etc/bind/jarkom/airdrop.it20.com";
+};
+zone "redzone.it20.com" {
+    type slave;
+    notify yes;
+    also-notify { 192.243.3.2; }; 
+    allow-transfer { 192.243.3.2; };
+    file "/etc/bind/jarkom/redzone.it20.com";
+};
+zone "loot.it20.com" {
+    type slave;
+    notify yes;
+    also-notify { 192.243.3.2; }; 
+    allow-transfer { 192.243.3.2; };
+    file "/etc/bind/jarkom/loot.it20.com";
+};
+zone "3.243.192.in-addr.arpa" {
+    type slave;
+    notify yes;
+    also-notify { 192.243.3.2; }; 
+    allow-transfer { 192.243.3.2; };
+    file "/etc/bind/jarkom/3.243.192.in-addr.arpa";
+};
+```
 
 ## Soal 8
 Kamu juga diperintahkan untuk membuat subdomain khusus melacak airdrop berisi peralatan medis dengan subdomain medkit.airdrop.xxxx.com yang mengarah ke Lipovka
 ### Penyelesaian
+```
+'zone "airdrop.it20.com" {
+	type master;
+	file "/etc/bind/jarkom/airdrop.it20.com";
+};
+```
 
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     airdrop.it20.com. root.airdrop.it20.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      airdrop.it20.com.
+@       IN      A       192.243.2.4 //stalber 
+medkit  IN      A       192.243.2.3 //lipovka
+www     IN      CNAME   airdrop.it20.com.
+```
 
 ## Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
