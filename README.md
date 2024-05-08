@@ -351,7 +351,11 @@ Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom ole
 ## Soal 10
 Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 ### Penyelesaian
-
+Untuk menambahkan log kita bisa menambahkan code berikut pada /etc/bind/delegasi/siren.redzone.it20.com seperti berikut:
+~~~
+log     IN      A       10.66.1.2
+www.log IN      CNAME   www.siren.redzone.it05.com.
+~~~
 
 ## Soal 11
 Setelah pertempuran mereda, warga Erangel dapat kembali mengakses jaringan luar, tetapi hanya warga Pochinki saja yang dapat mengakses jaringan luar secara langsung. Buatlah konfigurasi agar warga Erangel yang berada diluar Pochinki dapat mengakses jaringan luar melalui DNS Server Pochinki
@@ -386,7 +390,13 @@ options {
 ~~~
 etc/bind/named.conf.options
 
+![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/30669139-20e4-4cab-a371-e4b8b54bcd10)
 
+![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/d2f58014-70d0-48e8-b6da-4e6065a3f085)
+
+![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/4b747eb5-6dd7-4815-9ac4-c1f6eb5c990b)
+
+![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/4f791ec5-d5cc-4d9f-8acb-0646cebbeb1c)
 
 
 ## Soal 12
