@@ -360,6 +360,7 @@ www.log IN      CNAME   www.siren.redzone.it05.com.
 ## Soal 11
 Setelah pertempuran mereda, warga Erangel dapat kembali mengakses jaringan luar, tetapi hanya warga Pochinki saja yang dapat mengakses jaringan luar secara langsung. Buatlah konfigurasi agar warga Erangel yang berada diluar Pochinki dapat mengakses jaringan luar melalui DNS Server Pochinki
 ### Penyelesaian
+Untuk konfigurasi agar warga Erangel yang berada diluar Pochinki dapat mengakses jaringan luar melalui DNS Server Pochinki, kita bisa menggunakan port forwarding IP 192.168.122.1 dalam file /etc/bind/named.conf.options pada node Pochinki sebagai berikut:
 ~~~
 options {
     directory "/var/cache/bind";
@@ -389,14 +390,6 @@ options {
 };
 ~~~
 etc/bind/named.conf.options
-
-![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/30669139-20e4-4cab-a371-e4b8b54bcd10)
-
-![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/d2f58014-70d0-48e8-b6da-4e6065a3f085)
-
-![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/4b747eb5-6dd7-4815-9ac4-c1f6eb5c990b)
-
-![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/4f791ec5-d5cc-4d9f-8acb-0646cebbeb1c)
 
 
 ## Soal 12
