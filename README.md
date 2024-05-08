@@ -237,6 +237,7 @@ www     IN      CNAME   redzone.it20.com.
 ## Soal 4
 Markas pusat meminta dibuatnya domain khusus untuk menaruh informasi persenjataan dan suplai yang tersebar. Informasi persenjataan dan suplai tersebut mengarah ke Mylta dan domain yang ingin digunakan adalah loot.xxxx.com dengan alias www.loot.xxxx.com
 ### Penyelesaian
+Pada DNS Master pochinki  membuat file soal4.sh berisikan
 ```
 zone "loot.it20.com" {
 	type master;
@@ -302,6 +303,7 @@ Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yan
 
 ## Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
+
 Pada DNS Master pochinki  membuat file soal6.sh berisikan
 ### Penyelesaian
 ```
@@ -342,6 +344,8 @@ $TTL    604800
 ## Soal 7
 Akhir-akhir ini seringkali terjadi serangan siber ke DNS Server Utama, sebagai tindakan antisipasi kamu diperintahkan untuk membuat DNS Slave di Georgopol untuk semua domain yang sudah dibuat sebelumnya
 ### Penyelesaian
+
+Pada DNS Master pochinki  membuat file soal7.sh berisikan
 ```
 zone "airdrop.it20.com" {
     type master;
@@ -420,7 +424,9 @@ Lalu mengecek dengan ping pada setiap domain yang telah dibuat sebelumnya pada c
 
 ## Soal 8
 Kamu juga diperintahkan untuk membuat subdomain khusus melacak airdrop berisi peralatan medis dengan subdomain medkit.airdrop.xxxx.com yang mengarah ke Lipovka
+
 ### Penyelesaian
+Memuat file soal8.sh berisi konfig berikut
 ```
 'zone "airdrop.it20.com" {
 	type master;
