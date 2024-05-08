@@ -710,32 +710,6 @@ server {
 ~~~
 Setelah itu kita jalankan dengan command `service nginx restart`
 
-## Soal 15
-
-### Penyelesaian
-
-
-## Soal 16
-
-### Penyelesaian
-
-
-## Soal 17
-
-### Penyelesaian
-
-
-## Soal 18
-
-### Penyelesaian
-
-
-## Soal 19
-
-### Penyelesaian
-
-
-## Soal 20
 
 ### Penyelesaian
 
