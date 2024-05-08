@@ -398,8 +398,110 @@ etc/bind/named.conf.options
 
 
 ## Soal 13
-
+Tapi pusat merasa tidak puas dengan performanya karena traffic yang tinggi maka pusat meminta kita memasang load balancer pada web nya, dengan Severny, Stalber, Lipovka sebagai worker dan Mylta sebagai Load Balancer menggunakan apache sebagai web server nya dan load balancer nya
 ### Penyelesaian
+Pada bagian Web Server yaitu Stalber, severny, dan lipovka kita bisa membuat script yang berfungsi sebagai web server dengan script sebagai berikut:
+~~~
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+
+apt-get update
+apt-get install lynx apache2 php libapache2-mod-php7.0 nginx -y
+
+echo nameserver 192.243.3.2 > /etc/resolv.conf
+
+echo '
+<VirtualHost *:8080>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/jarkom-it20
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+' > /etc/apache2/sites-available/jarkom-it20.conf
+
+echo '
+Listen 80
+Listen 8080
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+' > /etc/apache2/ports.conf
+
+mkdir /var/www/jarkom-it20
+
+cp /root/index.php /var/www/jarkom-it20/index.php
+
+a2enmod proxy
+a2enmod proxy_http
+
+cd /etc/apache2/sites-available
+
+a2ensite jarkom-it20.conf
+
+cd /root
+
+service apache2 restart
+~~~
+Setelah itu kita jalankan dengan menggunakan `bash script.sh` lalu kita masuk ke MyIta untuk membuat Script yang berfungsi sebagai `Load Balancer` dengan script sebagai berikut:
+~~~
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+
+apt-get update
+apt-get install lynx apache2 php libapache2-mod-php7.0 nginx -y
+
+echo nameserver 192.243.3.2 > /etc/resolv.conf
+
+echo '
+<VirtualHost *:8080>
+        <proxy balancer://jarkombalancer>
+                BalancerMember http://192.243.2.2:8080
+                BalancerMember http://192.243.2.3:8080
+                BalancerMember http://192.243.2.4:8080
+                ProxySet lbmethod=bytraffic
+        </proxy>
+        ProxyPreserveHost On
+        ProxyPass / balancer://jarkombalancer/
+        ProxyPassReverse / balancer://jarkombalancer/
+</VirtualHost>
+' > /etc/apache2/sites-available/jarkom-it20.conf
+
+echo '
+Listen 80
+Listen 8080
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+' > /etc/apache2/ports.conf
+
+a2enmod proxy
+a2enmod proxy_http
+a2enmod proxy_balancer
+a2enmod lbmethod_bytraffic
+
+cd /etc/apache2/sites-available
+
+a2ensite jarkom-it20.conf
+
+cd /root
+
+service apache2 restart
+~~~
+Setelah load balancer di jalankan kita masuk ke salah satu client seperti zharki dan disitu kita akan mengetes dengan menggunakan command `lynx [IP Client]` yang tampilan nya sebagai berikut:
+![image](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/128389289/862d38ff-ac93-4465-b0b6-e0d0f13bcba6)
+
 
 
 ## Soal 14
