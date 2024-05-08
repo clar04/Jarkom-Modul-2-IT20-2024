@@ -351,7 +351,7 @@ Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom ole
 ## Soal 10
 Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 ### Penyelesaian
-Untuk menambahkan log kita bisa menambahkan code berikut pada /etc/bind/delegasi/siren.redzone.it20.com seperti berikut:
+Untuk menambahkan `log` kita bisa menambahkan code berikut pada `/etc/bind/delegasi/siren.redzone.it20.com` seperti berikut:
 ~~~
 log     IN      A       10.66.1.2
 www.log IN      CNAME   www.siren.redzone.it05.com.
@@ -410,9 +410,40 @@ etc/bind/named.conf.options
 
 
 ## Soal 14
-
+Mereka juga belum merasa puas jadi pusat meminta agar web servernya dan load balancer nya diubah menjadi nginx
 ### Penyelesaian
+Jadi kita akan merubah dari apache menjadi nginx dengan menjalankan script pada severny, lipovka, dan stalber denagnmenggunakan script sebagai berikut:
+~~~
+server {
+    listen 8002;
+    root /var/www/html/mylta.it05.com/;
+    index index.php index.html index.htm;
 
+    server_name mylta.it05.com;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+server {
+    listen 8002;
+    server_name www.mylta.it05.com;  
+
+    root /var/www/html/www.mylta.it05.com/;  
+
+}
+~~~
+Setelah itu kita jalankan dengan command `service nginx restart`
 
 ## Soal 15
 
