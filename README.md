@@ -711,8 +711,6 @@ server {
 Setelah itu kita jalankan dengan command `service nginx restart`
 
 
-### Penyelesaian
-
 
 
 
