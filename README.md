@@ -132,7 +132,48 @@ Untuk membantu pertempuran di Erangel, kamu ditugaskan untuk membuat jaringan ko
 - DNS Master akan diberi nama Pochinki, sesuai dengan kota tempat dibuatnya server tersebut
 - Karena ada kemungkinan musuh akan mencoba menyerang Server Utama, maka buatlah DNS Slave Georgopol yang mengarah ke Pochinki
 - Markas pusat juga meminta dibuatkan tiga Web Server yaitu Severny, Stalber, dan Lipovka. Sedangkan Mylta akan bertindak sebagai Load Balancer untuk server-server tersebut 
-### Penyelesaian 
+### Penyelesaian
+Pada Erangel dibuat suatu file erangel.sh yang berisi 
+```
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.243.0.0/16
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+
+```
+Pada DNS Master (Pochinki) dan DNS Slave (Georgopol), masing-masing dibuat file poc.sh pada Pochinki dan geo.sh pada Georgopol yang berisi 
+```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+apt-get update
+apt-get install bind9 -y
+```
+Pada  setiap client, masing-masing dibuat file zharki.sh pada Zharki, yas.sh pada YasnayaPolyana, dan prim.sh pada Primorsk  yang berisi 
+```
+echo ‘nameserver 192.168.122.1
+nameserver 192.243.3.2       
+nameserver 192.243.4.2’ > /etc/resolv.conf
+apt-get update
+apt-get install dnsutils -y
+apt-get install lynx -y
+apt-get install bind9 -y
+```
+Nameserver yang diinput merupakan IP dari Erangel `192.168.122.1`, IP dari DNS Master (Pochinki) `192.243.3.2`, IP dari DNS Slave (Georgopol) `192.243.4.2` 
+
+#### Dokumentasi test ping google.com pada masing-masing client
+Pada client Zharki
+
+<img width="583" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/ffb6fba1-8742-4b63-a260-2abc2b0277ad">
+
+
+Pada client YasnayaPolyana
+
+<img width="576" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/8e93ed75-802c-4d9f-851c-1c57688bff47">
+
+
+Pada client Primorsk 
+
+<img width="578" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/5da3677c-b687-4336-9b8a-076578393513">
+
+
+
 
 
 ## Soal 2
