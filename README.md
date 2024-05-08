@@ -302,6 +302,7 @@ Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yan
 
 ## Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
+Pada DNS Master pochinki  membuat file soal6.sh berisikan
 ### Penyelesaian
 ```
 zone "2.243.192.in-addr.arpa" {
@@ -325,6 +326,17 @@ $TTL    604800
 2                             IN      PTR     redzone.it20.com.
 '
 ```
+#### Dokumentasi pada setiap client
+<img width="372" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/723ff549-3641-4f17-bfc8-9cf5960d3737">
+
+
+<img width="353" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/20df55e6-a4eb-411f-8061-41ac6715fbea">
+
+
+<img width="354" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/ee495ca0-c922-412a-91ad-47aac53ee0d4">
+
+
+
 
 
 ## Soal 7
@@ -391,6 +403,21 @@ zone "3.243.192.in-addr.arpa" {
 };
 ```
 
+#### Dokumentasi
+Stop bind9 pada Pochinki terlebih dahulu
+<img width="725" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/a79c3366-778d-4f37-8402-ab110a08ebf3">
+
+
+Kemudian menjalankan soal7.sh pada georgopol 
+<img width="727" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/0c1c7abb-5ae8-4d6b-8c16-28250a83011e">
+
+
+Lalu mengecek dengan ping pada setiap domain yang telah dibuat sebelumnya pada client Zharki
+
+![Screenshot 2024-05-04 062744](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/3019ddff-6e36-4cfb-9cbb-d7100628f2a7)
+
+
+
 ## Soal 8
 Kamu juga diperintahkan untuk membuat subdomain khusus melacak airdrop berisi peralatan medis dengan subdomain medkit.airdrop.xxxx.com yang mengarah ke Lipovka
 ### Penyelesaian
@@ -418,6 +445,11 @@ $TTL    604800
 medkit  IN      A       192.243.2.3 //lipovka
 www     IN      CNAME   airdrop.it20.com.
 ```
+
+#### Dokumentasi
+![Screenshot 2024-05-04 094412](https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/b91e8f55-fae2-4052-829f-900c94fcd451)
+
+
 
 ## Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
