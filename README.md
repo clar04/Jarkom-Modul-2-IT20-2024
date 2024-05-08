@@ -147,8 +147,7 @@ apt-get install bind9 -y
 ```
 Pada  setiap client, masing-masing dibuat file zharki.sh pada Zharki, yas.sh pada YasnayaPolyana, dan prim.sh pada Primorsk  yang berisi 
 ```
-echo ‘nameserver 192.168.122.1
-nameserver 192.243.3.2       
+echo ‘nameserver 192.243.3.2       
 nameserver 192.243.4.2’ > /etc/resolv.conf
 apt-get update
 apt-get install dnsutils -y
@@ -179,14 +178,15 @@ Pada client Primorsk
 ## Soal 2
 Karena para pasukan membutuhkan koordinasi untuk mengambil airdrop, maka buatlah sebuah domain yang mengarah ke Stalber dengan alamat airdrop.xxxx.com dengan alias www.airdrop.xxxx.com dimana xxxx merupakan kode kelompok.
 ### Penyelesaian
-
+Pada node Pochinki membuat file soal2.sh yang berisikan script berikut untuk nantinya disimpan pada  file /etc/bind/named.conf.local
 ```
 zone "airdrop.it20.com" {
 	type master;
 	file "/etc/bind/jarkom/airdrop.it20.com";
+        
 };
 ```
-
+kemudian script berikut pada /etc/bind/jarkom/airdrop.it20.com dengan IP yang mengarah pada Stalber
 ```
 ;
 ; BIND data file for local loopback interface
@@ -204,16 +204,18 @@ $TTL    604800
 www     IN      CNAME   airdrop.it20.com
 ```
 
+
 ## Soal 3
 Para pasukan juga perlu mengetahui mana titik yang sedang di bombardir artileri, sehingga dibutuhkan domain lain yaitu redzone.xxxx.com dengan alias www.redzone.xxxx.com yang mengarah ke Severny
 ### Penyelesaian
+Pada node Pochinki membuat file soal3.sh yang berisikan script berikut untuk nantinya disimpan pada  file /etc/bind/named.conf.local
 ```
 zone "redzone.it20.com" {
 	type master;
 	file "/etc/bind/jarkom/redzone.it20.com";
 };
 ```
-
+kemudian script berikut pada /etc/bind/jarkom/redzone.it20.com dengan IP yang mengarah pada Serverny
 ```
 ;
 ; BIND data file for local loopback interface
@@ -263,7 +265,40 @@ www     IN      CNAME   loot.it20.com.
 ## Soal 5
 Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yang berada di Erangel
 ### Penyelesaian
-SS dokumentasi 
+##### airdrop.it20.com dan www.airdrop.it20.com  pada masing-masing client
+
+<img width="474" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/7d25c1a8-4801-4cc7-9f9c-a11c67808e15">
+
+
+<img width="434" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/9aac3328-575e-462b-ba2e-d7d9d53edde2">
+
+
+<img width="431" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/2b5e5ede-584d-4146-9975-5d9f560eae14">
+
+
+##### redzone.it20.com www.redzone.it20.com pada masing-masing client
+
+<img width="479" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/0506b7b5-ef29-40a0-8639-53305e92a3a1">
+
+
+<img width="410" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/a1c4c3ab-3b8e-4418-89fc-183191bc81f7">
+
+
+<img width="424" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/5b634bea-d7ad-4cfe-b9ec-840051278301">
+
+
+##### loot.it20.com www.loot.it20.com pada masing-masing client
+
+<img width="422" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/16639813-b911-46e8-9a5e-65551c7e0a75">
+
+
+<img width="412" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/942c6213-5f8e-4851-8bd3-11ce39b27816">
+
+
+<img width="412" alt="image" src="https://github.com/clar04/Jarkom-Modul-2-IT20-2024/assets/123356941/8547d335-205a-4ad8-9b6a-93da3d1353ca">
+
+
+
 
 ## Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
