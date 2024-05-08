@@ -154,7 +154,7 @@ apt-get install dnsutils -y
 apt-get install lynx -y
 apt-get install bind9 -y
 ```
-Nameserver yang diinput merupakan IP dari Erangel `192.168.122.1`, IP dari DNS Master (Pochinki) `192.243.3.2`, IP dari DNS Slave (Georgopol) `192.243.4.2` 
+Nameserver yang diinput merupakan IP dari DNS Master (Pochinki) `192.243.3.2` dan IP dari DNS Slave (Georgopol) `192.243.4.2` 
 
 #### Dokumentasi test ping google.com pada masing-masing client
 Pada client Zharki
