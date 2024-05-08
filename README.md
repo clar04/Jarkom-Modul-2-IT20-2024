@@ -460,8 +460,41 @@ www     IN      CNAME   airdrop.it20.com.
 ## Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
 ### Penyelesaian
+Untuk menambahkan subdomain siren dan alias www pada redzone.it05.com kita bisa menambahkan pada conf redzone.it05.com dan mengarahkan ke IP Georgopool seperti berikut:
+~~~
+ns1     IN      A       192.243.2.2
+siren   IN      NS      ns1
+~~~
+Pada node Pochinki dan Georgopool kita juga perlu menambahkan code sebagai berikut pada /etc/bind/named.conf.options:
+~~~
+allow-query{any;};
+~~~
+Selain itu, kita juga perlu menambahkan comment pada dnnsec-validation auto;
 
-
+Pada node Georgopol kita juga perlu setup domain siren dan aliasnya. Pada /etc/bind/named.conf.local tambahkan;
+~~~
+zone "siren.redzone.it20.com" {
+   type master;
+   file "/etc/bind/delegasi/siren.redzone.it20.com";
+};
+~~~
+Dan pada /etc/bind/delegasi/siren.redzone.it05.com kita perlu mengarahkannya ke IP Severny 192.243.2.2 adalah seperti berikut:
+~~~
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     siren.redzone.it20.com. root.siren.redzone.it20.com. (
+                     2022100601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      siren.redzone.it20.com.
+@       IN      A       192.243.2.2
+www     IN      A       192.243.2.2
+~~~
 ## Soal 10
 Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 ### Penyelesaian
